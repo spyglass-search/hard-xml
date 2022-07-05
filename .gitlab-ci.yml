@@ -2,4 +2,4 @@ variables:
   RUST_CI__PUBLISH_CRATES: hard-xml-derive hard-xml
 
 include:
-- remote: 'https://gitlab.com/kevincox/rust-ci/-/raw/multi-project/gitlab-ci.yml'
+- remote: 'https://gitlab.com/kevincox/rust-ci/-/raw/v1/gitlab-ci.yml'
