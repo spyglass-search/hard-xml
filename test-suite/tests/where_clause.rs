@@ -2,7 +2,7 @@ use std::error::Error;
 use std::fmt::Display;
 use std::str::FromStr;
 
-use strong_xml::{XmlRead, XmlReadOwned, XmlResult, XmlWrite};
+use hard_xml::{XmlRead, XmlReadOwned, XmlResult, XmlWrite};
 
 #[derive(XmlRead, XmlWrite, PartialEq, Debug)]
 #[xml(tag = "wrapper")]

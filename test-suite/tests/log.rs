@@ -3,7 +3,7 @@ use std::fmt::Write;
 use std::sync::{Arc, Mutex};
 
 use log::{LevelFilter, Log, Metadata, Record};
-use strong_xml::{XmlRead, XmlResult, XmlWrite};
+use hard_xml::{XmlRead, XmlResult, XmlWrite};
 
 struct Logger(Arc<Mutex<String>>);
 

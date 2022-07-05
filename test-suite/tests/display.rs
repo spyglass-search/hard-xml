@@ -1,6 +1,6 @@
 use std::fmt;
 
-use strong_xml::{XmlResult, XmlWrite};
+use hard_xml::{XmlResult, XmlWrite};
 
 #[derive(PartialEq, Debug)]
 struct Foo;

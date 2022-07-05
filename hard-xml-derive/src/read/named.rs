@@ -84,7 +84,7 @@ pub fn read(tag: &LitStr, ele_name: TokenStream, fields: &[Field]) -> TokenStrea
             #( #return_fields, )*
         };
 
-        strong_xml::log_finish_reading!(#ele_name);
+        hard_xml::log_finish_reading!(#ele_name);
 
         return Ok(__res);
     };
@@ -105,7 +105,7 @@ pub fn read(tag: &LitStr, ele_name: TokenStream, fields: &[Field]) -> TokenStrea
                     #( #read_child_fields, )*
                     #( #read_flatten_text_fields, )*
                     tag => {
-                        strong_xml::log_skip_element!(#ele_name, tag);
+                        hard_xml::log_skip_element!(#ele_name, tag);
                         // skip the start tag
                         reader.next();
                         reader.read_to_end(tag)?;
@@ -118,7 +118,7 @@ pub fn read(tag: &LitStr, ele_name: TokenStream, fields: &[Field]) -> TokenStrea
     };
 
     quote! {
-        strong_xml::log_start_reading!(#ele_name);
+        hard_xml::log_start_reading!(#ele_name);
 
         #( #init_fields )*
 
@@ -128,7 +128,7 @@ pub fn read(tag: &LitStr, ele_name: TokenStream, fields: &[Field]) -> TokenStrea
             match __key {
                 #( #read_attr_fields, )*
                 key => {
-                    strong_xml::log_skip_attribute!(#ele_name, key);
+                    hard_xml::log_skip_attribute!(#ele_name, key);
                 },
             }
         }
@@ -180,11 +180,11 @@ fn read_attrs(
     } else {
         quote! {
             #tag => {
-                strong_xml::log_start_reading_field!(#ele_name, #name);
+                hard_xml::log_start_reading_field!(#ele_name, #name);
 
                 #bind = Some(#from_str);
 
-                strong_xml::log_finish_reading_field!(#ele_name, #name);
+                hard_xml::log_finish_reading_field!(#ele_name, #name);
             }
         }
     }
@@ -203,12 +203,12 @@ fn read_text(
         panic!("`text` attribute doesn't support Vec.");
     } else {
         quote! {
-            strong_xml::log_start_reading_field!(#ele_name, #name);
+            hard_xml::log_start_reading_field!(#ele_name, #name);
 
             let __value = reader.read_text(#tag)?;
             #bind = Some(#from_str);
 
-            strong_xml::log_finish_reading_field!(#ele_name, #name);
+            hard_xml::log_finish_reading_field!(#ele_name, #name);
         }
     }
 }
@@ -222,21 +222,21 @@ fn read_children(
 ) -> TokenStream {
     let from_reader = match &ty {
         Type::VecT(ty) => quote! {
-            #bind.push(<#ty as strong_xml::XmlRead>::from_reader(reader)?);
+            #bind.push(<#ty as hard_xml::XmlRead>::from_reader(reader)?);
         },
         Type::OptionT(ty) | Type::T(ty) => quote! {
-            #bind = Some(<#ty as strong_xml::XmlRead>::from_reader(reader)?);
+            #bind = Some(<#ty as hard_xml::XmlRead>::from_reader(reader)?);
         },
         _ => panic!("`child` attribute only supports Vec<T>, Option<T> and T."),
     };
 
     quote! {
         #( #tags )|* => {
-            strong_xml::log_start_reading_field!(#ele_name, #name);
+            hard_xml::log_start_reading_field!(#ele_name, #name);
 
             #from_reader
 
-            strong_xml::log_finish_reading_field!(#ele_name, #name);
+            hard_xml::log_finish_reading_field!(#ele_name, #name);
         }
     }
 }
@@ -267,11 +267,11 @@ fn read_flatten_text(
             // skip element start
             reader.next();
 
-            strong_xml::log_start_reading_field!(#ele_name, #name);
+            hard_xml::log_start_reading_field!(#ele_name, #name);
 
             #read_text
 
-            strong_xml::log_finish_reading_field!(#ele_name, #name);
+            hard_xml::log_finish_reading_field!(#ele_name, #name);
         }
     }
 }

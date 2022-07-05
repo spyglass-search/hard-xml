@@ -1,18 +1,18 @@
 //! Strong typed xml, based on xmlparser.
 //!
-//! [![Build Status](https://github.com/PoiScript/strong-xml/workflows/Test/badge.svg)](https://github.com/PoiScript/strong-xml/actions?query=workflow%3ATest)
-//! [![Crates.io](https://img.shields.io/crates/v/strong-xml.svg)](https://crates.io/crates/strong-xml)
-//! [![Document](https://docs.rs/strong-xml/badge.svg)](https://docs.rs/strong-xml)
+//! [![Build Status](https://github.com/PoiScript/hard-xml/workflows/Test/badge.svg)](https://github.com/PoiScript/hard-xml/actions?query=workflow%3ATest)
+//! [![Crates.io](https://img.shields.io/crates/v/hard-xml.svg)](https://crates.io/crates/hard-xml)
+//! [![Document](https://docs.rs/hard-xml/badge.svg)](https://docs.rs/hard-xml)
 //!
 //! ## Quick Start
 //!
 //! ```toml
-//! strong-xml = "0.6"
+//! hard-xml = "0.6"
 //! ```
 //!
 //! ```rust
 //! use std::borrow::Cow;
-//! use strong_xml::{XmlRead, XmlWrite};
+//! use hard_xml::{XmlRead, XmlWrite};
 //!
 //! #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 //! #[xml(tag = "parent")]
@@ -50,7 +50,7 @@
 //! Specifies the xml tag of a struct or an enum variant.
 //!
 //! ```rust
-//! # use strong_xml::{XmlRead, XmlWrite};
+//! # use hard_xml::{XmlRead, XmlWrite};
 //! #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 //! #[xml(tag = "parent")]
 //! struct Parent {}
@@ -67,7 +67,7 @@
 //! ```
 //!
 //! ```rust
-//! # use strong_xml::{XmlRead, XmlWrite};
+//! # use hard_xml::{XmlRead, XmlWrite};
 //! #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 //! #[xml(tag = "tag1")]
 //! struct Tag1 {}
@@ -102,7 +102,7 @@
 //! where `T: FromStr + Display`.
 //!
 //! ```rust
-//! use strong_xml::{XmlRead, XmlWrite};
+//! use hard_xml::{XmlRead, XmlWrite};
 //!
 //! #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 //! #[xml(tag = "parent")]
@@ -128,7 +128,7 @@
 //! `T`, `Option<T>`, `Vec<T>` where `T: XmlRead + XmlWrite`.
 //!
 //! ```rust
-//! use strong_xml::{XmlRead, XmlWrite};
+//! use hard_xml::{XmlRead, XmlWrite};
 //!
 //! #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 //! #[xml(tag = "tag1")]
@@ -178,7 +178,7 @@
 //!
 //! ```rust
 //! use std::borrow::Cow;
-//! use strong_xml::{XmlRead, XmlWrite};
+//! use hard_xml::{XmlRead, XmlWrite};
 //!
 //! #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 //! #[xml(tag = "parent")]
@@ -206,7 +206,7 @@
 //!
 //! ```rust
 //! use std::borrow::Cow;
-//! use strong_xml::{XmlRead, XmlWrite};
+//! use hard_xml::{XmlRead, XmlWrite};
 //!
 //! #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 //! #[xml(tag = "parent")]
@@ -235,7 +235,7 @@
 //!
 //! ```rust
 //! use std::borrow::Cow;
-//! use strong_xml::{XmlRead, XmlWrite};
+//! use hard_xml::{XmlRead, XmlWrite};
 //!
 //! #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 //! #[xml(tag = "parent")]
@@ -252,7 +252,7 @@
 //!
 //! ```rust
 //! use std::borrow::Cow;
-//! use strong_xml::{XmlRead, XmlWrite};
+//! use hard_xml::{XmlRead, XmlWrite};
 //!
 //! #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 //! #[xml(tag = "parent")]
@@ -273,7 +273,7 @@
 //!
 //! ```rust
 //! use std::borrow::Cow;
-//! use strong_xml::XmlRead;
+//! use hard_xml::XmlRead;
 //!
 //! #[derive(XmlRead, PartialEq, Debug)]
 //! #[xml(tag = "root")]
@@ -322,7 +322,7 @@ pub use self::xml_reader::XmlReader;
 pub use self::xml_write::XmlWrite;
 pub use self::xml_writer::XmlWriter;
 
-pub use strong_xml_derive::{XmlRead, XmlWrite};
+pub use hard_xml_derive::{XmlRead, XmlWrite};
 
 pub use xmlparser;
 

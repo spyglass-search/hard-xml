@@ -1,20 +1,21 @@
-# strong-xml
+# hard-xml
 
 Strong typed xml, based on xmlparser.
 
-[![Build Status](https://github.com/PoiScript/strong-xml/workflows/Test/badge.svg)](https://github.com/PoiScript/strong-xml/actions?query=workflow%3ATest)
-[![Crates.io](https://img.shields.io/crates/v/strong-xml.svg)](https://crates.io/crates/strong-xml)
-[![Document](https://docs.rs/strong-xml/badge.svg)](https://docs.rs/strong-xml)
+This is a fork of https://github.com/PoiScript/hard-xml as it has become unmaintained.
+
+[![Crates.io](https://img.shields.io/crates/v/hard-xml.svg)](https://crates.io/crates/hard-xml)
+[![Document](https://docs.rs/hard-xml/badge.svg)](https://docs.rs/hard-xml)
 
 ### Quick Start
 
-```toml
-strong-xml = "0.6"
+```sh
+cargo add hard-xml
 ```
 
 ```rust
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 #[xml(tag = "parent")]
@@ -102,7 +103,7 @@ Specifies that a struct field is attribute. Support
 where `T: FromStr + Display`.
 
 ```rust
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 #[xml(tag = "parent")]
@@ -128,7 +129,7 @@ Specifies that a struct field is a child element. Support
 `T`, `Option<T>`, `Vec<T>` where `T: XmlRead + XmlWrite`.
 
 ```rust
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 #[xml(tag = "tag1")]
@@ -178,7 +179,7 @@ Support `Cow<str>`, `Vec<Cow<str>>`, `Option<Cow<str>>`,
 
 ```rust
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 #[xml(tag = "parent")]
@@ -206,7 +207,7 @@ Support `Cow<str>`, `Vec<Cow<str>>`, `Option<Cow<str>>`,
 
 ```rust
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 #[xml(tag = "parent")]
@@ -235,7 +236,7 @@ Specifies a CDATA text. Should be used together with `text` or `flatten_text`.
 
 ```rust
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 #[xml(tag = "parent")]
@@ -252,7 +253,7 @@ assert_eq!(
 
 ```rust
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 #[xml(tag = "parent")]
@@ -273,7 +274,7 @@ Use `Default::default()` if the value is not present when reading.
 
 ```rust
 use std::borrow::Cow;
-use strong_xml::XmlRead;
+use hard_xml::XmlRead;
 
 #[derive(XmlRead, PartialEq, Debug)]
 #[xml(tag = "root")]

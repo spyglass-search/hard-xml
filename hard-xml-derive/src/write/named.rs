@@ -77,7 +77,7 @@ pub fn write(tag: &LitStr, ele_name: TokenStream, fields: &[Field]) -> TokenStre
     };
 
     quote! {
-        strong_xml::log_start_writing!(#ele_name);
+        hard_xml::log_start_writing!(#ele_name);
 
         writer.write_element_start(#tag)?;
 
@@ -85,7 +85,7 @@ pub fn write(tag: &LitStr, ele_name: TokenStream, fields: &[Field]) -> TokenStre
 
         #write_element_end
 
-        strong_xml::log_finish_writing!(#ele_name);
+        hard_xml::log_finish_writing!(#ele_name);
     }
 }
 
@@ -96,22 +96,22 @@ fn write_attrs(tag: &LitStr, name: &Ident, ty: &Type, ele_name: &TokenStream) ->
         panic!("`attr` attribute doesn't support Vec.");
     } else if ty.is_option() {
         quote! {
-            strong_xml::log_start_writing_field!(#ele_name, #name);
+            hard_xml::log_start_writing_field!(#ele_name, #name);
 
             if let Some(__value) = #name {
                 writer.write_attribute(#tag, #to_str)?;
             }
 
-            strong_xml::log_finish_writing_field!(#ele_name, #name);
+            hard_xml::log_finish_writing_field!(#ele_name, #name);
         }
     } else {
         quote! {
-            strong_xml::log_start_writing_field!(#ele_name, #name);
+            hard_xml::log_start_writing_field!(#ele_name, #name);
 
             let __value = #name;
             writer.write_attribute(#tag, #to_str)?;
 
-            strong_xml::log_finish_writing_field!(#ele_name, #name);
+            hard_xml::log_finish_writing_field!(#ele_name, #name);
         }
     }
 }
@@ -119,29 +119,29 @@ fn write_attrs(tag: &LitStr, name: &Ident, ty: &Type, ele_name: &TokenStream) ->
 fn write_child(name: &Ident, ty: &Type, ele_name: &TokenStream) -> TokenStream {
     match ty {
         Type::OptionT(_) => quote! {
-            strong_xml::log_start_writing_field!(#ele_name, #name);
+            hard_xml::log_start_writing_field!(#ele_name, #name);
 
             if let Some(ref ele) = #name {
                 ele.to_writer(&mut writer)?;
             }
 
-            strong_xml::log_finish_writing_field!(#ele_name, #name);
+            hard_xml::log_finish_writing_field!(#ele_name, #name);
         },
         Type::VecT(_) => quote! {
-            strong_xml::log_start_writing_field!(#ele_name, #name);
+            hard_xml::log_start_writing_field!(#ele_name, #name);
 
             for ele in #name {
                 ele.to_writer(&mut writer)?;
             }
 
-            strong_xml::log_finish_writing_field!(#ele_name, #name);
+            hard_xml::log_finish_writing_field!(#ele_name, #name);
         },
         Type::T(_) => quote! {
-            strong_xml::log_start_writing_field!(#ele_name, #name);
+            hard_xml::log_start_writing_field!(#ele_name, #name);
 
             &#name.to_writer(&mut writer)?;
 
-            strong_xml::log_finish_writing_field!(#ele_name, #name);
+            hard_xml::log_finish_writing_field!(#ele_name, #name);
         },
         _ => panic!("`child` attribute only supports Vec<T>, Option<T> and T."),
     }
@@ -164,13 +164,13 @@ fn write_text(
     quote! {
         writer.write_element_end_open()?;
 
-        strong_xml::log_start_writing_field!(#ele_name, #name);
+        hard_xml::log_start_writing_field!(#ele_name, #name);
 
         let __value = &#name;
 
         writer.#wrtie_fn(#to_str)?;
 
-        strong_xml::log_finish_writing_field!(#ele_name, #name);
+        hard_xml::log_finish_writing_field!(#ele_name, #name);
 
         writer.write_element_end_close(#tag)?;
     }
@@ -187,32 +187,32 @@ fn write_flatten_text(
 
     if ty.is_vec() {
         quote! {
-            strong_xml::log_finish_writing_field!(#ele_name, #name);
+            hard_xml::log_finish_writing_field!(#ele_name, #name);
 
             for __value in #name {
                 writer.write_flatten_text(#tag, #to_str, #is_cdata)?;
             }
 
-            strong_xml::log_finish_writing_field!(#ele_name, #name);
+            hard_xml::log_finish_writing_field!(#ele_name, #name);
         }
     } else if ty.is_option() {
         quote! {
-            strong_xml::log_finish_writing_field!(#ele_name, #name);
+            hard_xml::log_finish_writing_field!(#ele_name, #name);
 
             if let Some(__value) = #name {
                 writer.write_flatten_text(#tag, #to_str, #is_cdata)?;
             }
 
-            strong_xml::log_finish_writing_field!(#ele_name, #name);
+            hard_xml::log_finish_writing_field!(#ele_name, #name);
         }
     } else {
         quote! {
-            strong_xml::log_finish_writing_field!(#ele_name, #name);
+            hard_xml::log_finish_writing_field!(#ele_name, #name);
 
             let __value = &#name;
             writer.write_flatten_text(#tag, #to_str, #is_cdata)?;
 
-            strong_xml::log_finish_writing_field!(#ele_name, #name);
+            hard_xml::log_finish_writing_field!(#ele_name, #name);
         }
     }
 }

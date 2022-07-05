@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use strong_xml::{XmlRead, XmlResult};
+use hard_xml::{XmlRead, XmlResult};
 
 #[derive(PartialEq, Debug)]
 struct Foo;

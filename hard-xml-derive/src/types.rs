@@ -151,7 +151,7 @@ impl Element {
                     .map(|variant| Fields::parse(variant.fields, variant.attrs, variant.ident))
                     .collect::<Vec<_>>(),
             },
-            Data::Union(_) => panic!("strong-xml doesn't support Union."),
+            Data::Union(_) => panic!("hard-xml doesn't support Union."),
         }
     }
 }

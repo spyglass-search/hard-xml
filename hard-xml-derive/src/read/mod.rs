@@ -29,7 +29,7 @@ pub fn impl_read(element: Element) -> TokenStream {
                     match tag {
                         #( #( #tags )|* => { #read } )*
                         tag => {
-                            strong_xml::log_skip_element!(#ele_name, tag);
+                            hard_xml::log_skip_element!(#ele_name, tag);
                             // skip the start tag
                             reader.next();
                             reader.read_to_end(tag)?;

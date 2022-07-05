@@ -1,6 +1,6 @@
 use chrono::offset::TimeZone;
 use chrono::{DateTime, Utc};
-use strong_xml::{XmlRead, XmlResult, XmlWrite};
+use hard_xml::{XmlRead, XmlResult, XmlWrite};
 
 #[derive(Debug, PartialEq, XmlRead, XmlWrite)]
 #[xml(tag = "document")]

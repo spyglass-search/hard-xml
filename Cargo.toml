@@ -1,6 +1,6 @@
 [workspace]
 members = [
-    "strong-xml",
-    "strong-xml-derive",
+    "hard-xml",
+    "hard-xml-derive",
     "test-suite"
 ]

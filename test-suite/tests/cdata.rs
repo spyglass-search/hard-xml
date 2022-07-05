@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlResult, XmlWrite};
+use hard_xml::{XmlRead, XmlResult, XmlWrite};
 #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 #[xml(tag = "bar")]
 struct Bar(#[xml(text, cdata)] String);

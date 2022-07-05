@@ -32,14 +32,14 @@ pub fn derive_xml_read(input: TokenStream) -> TokenStream {
     let impl_read = read::impl_read(Element::parse(input.clone()));
 
     let gen = quote! {
-        impl <#params_with_input_lifetime> strong_xml::XmlRead<'__input> for #name <#params>
+        impl <#params_with_input_lifetime> hard_xml::XmlRead<'__input> for #name <#params>
             #where_clause
         {
             fn from_reader(
-                mut reader: &mut strong_xml::XmlReader<'__input>
-            ) -> strong_xml::XmlResult<Self> {
-                use strong_xml::xmlparser::{ElementEnd, Token, Tokenizer};
-                use strong_xml::XmlError;
+                mut reader: &mut hard_xml::XmlReader<'__input>
+            ) -> hard_xml::XmlResult<Self> {
+                use hard_xml::xmlparser::{ElementEnd, Token, Tokenizer};
+                use hard_xml::XmlError;
                 #impl_read
             }
         }
@@ -62,13 +62,13 @@ pub fn derive_xml_write(input: TokenStream) -> TokenStream {
     let impl_write = write::impl_write(Element::parse(input.clone()));
 
     let gen = quote! {
-        impl <#params> strong_xml::XmlWrite for #name <#params>
+        impl <#params> hard_xml::XmlWrite for #name <#params>
             #where_clause
         {
             fn to_writer<W: std::io::Write>(
                 &self,
-                mut writer: &mut strong_xml::XmlWriter<W>
-            ) -> strong_xml::XmlResult<()> {
+                mut writer: &mut hard_xml::XmlWriter<W>
+            ) -> hard_xml::XmlResult<()> {
                 #impl_write
 
                 Ok(())

@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlResult, XmlWrite};
+use hard_xml::{XmlRead, XmlResult, XmlWrite};
 
 #[derive(XmlRead, XmlWrite, PartialEq, Debug)]
 #[xml(tag = "attr")]
