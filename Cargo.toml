@@ -2,5 +2,5 @@
 members = [
     "hard-xml",
     "hard-xml-derive",
-    "test-suite"
+    "test-suite",
 ]

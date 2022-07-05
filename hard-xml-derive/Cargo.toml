@@ -1,6 +1,6 @@
 [package]
 name = "hard-xml-derive"
-version = "0.6.3"
+version = "0.0.0"
 homepage = "https://gitlab.com/kevincox/hard-xml"
 repository = "https://gitlab.com/kevincox/hard-xml"
 description = "Derive marco of hard-xml."
