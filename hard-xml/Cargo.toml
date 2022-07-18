@@ -8,7 +8,7 @@ license = "MIT"
 readme = "README.md"
 authors = ["PoiScript <poiscript@gmail.com>"]
 keywords = ["xml", "xmlparser", "derive", "proc-macro"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 jetscii = "0.5"

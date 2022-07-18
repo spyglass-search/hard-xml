@@ -6,7 +6,7 @@ repository = "https://gitlab.com/kevincox/hard-xml"
 description = "Derive marco of hard-xml."
 license = "MIT"
 authors = ["PoiScript <poiscript@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 [lib]
 name = "hard_xml_derive"
