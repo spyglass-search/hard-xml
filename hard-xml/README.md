@@ -2,7 +2,7 @@
 
 Strong typed xml, based on xmlparser.
 
-This is a fork of https://github.com/PoiScript/hard-xml as it has become unmaintained.
+This is a fork of https://github.com/PoiScript/strong-xml as it has become unmaintained.
 
 [![Crates.io](https://img.shields.io/crates/v/hard-xml.svg)](https://crates.io/crates/hard-xml)
 [![Document](https://docs.rs/hard-xml/badge.svg)](https://docs.rs/hard-xml)
