@@ -1,5 +1,7 @@
 # hard-xml
 
+Temporary custom hard-xml implementation to support reading docx. Please use original project when possible.
+
 Strong typed xml, based on xmlparser.
 
 This is a fork of https://github.com/PoiScript/strong-xml as it has become unmaintained.

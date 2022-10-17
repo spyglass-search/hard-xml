@@ -2,8 +2,8 @@ use std::borrow::Cow;
 use std::fmt::Write;
 use std::sync::{Arc, Mutex};
 
-use log::{LevelFilter, Log, Metadata, Record};
 use hard_xml::{XmlRead, XmlResult, XmlWrite};
+use log::{LevelFilter, Log, Metadata, Record};
 
 struct Logger(Arc<Mutex<String>>);
 

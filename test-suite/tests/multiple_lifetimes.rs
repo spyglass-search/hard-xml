@@ -1,5 +1,5 @@
-use std::borrow::Cow;
 use hard_xml::{XmlRead, XmlResult, XmlWrite};
+use std::borrow::Cow;
 
 #[derive(XmlWrite, XmlRead, PartialEq, Debug)]
 #[xml(tag = "foo")]

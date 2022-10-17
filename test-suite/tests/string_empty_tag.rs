@@ -16,16 +16,11 @@ fn test() -> XmlResult<()> {
 
     assert_eq!(
         Head::from_str(r#"<head><title/></head>"#)?,
-        Head {
-            title: "".into(),
-        }
+        Head { title: "".into() }
     );
 
     assert_eq!(
-        Head {
-            title: "".into(),
-        }
-        .to_string()?,
+        Head { title: "".into() }.to_string()?,
         r#"<head><title></title></head>"#
     );
 

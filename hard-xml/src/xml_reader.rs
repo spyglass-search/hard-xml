@@ -38,7 +38,6 @@ impl<'a> XmlReader<'a> {
     #[inline]
     pub fn read_text(&mut self, end_tag: &str) -> XmlResult<Cow<'a, str>> {
         let mut res = None;
-
         while let Some(token) = self.next() {
             match token? {
                 Token::ElementEnd {
@@ -53,11 +52,10 @@ impl<'a> XmlReader<'a> {
                     res = Some(Cow::Borrowed(text.as_str()));
                 }
                 Token::ElementEnd {
-                    end: ElementEnd::Close(_, _),
+                    end: ElementEnd::Close(_, local),
                     span,
                 } => {
-                    let span = span.as_str(); // </tag>
-                    let tag = &span[2..span.len() - 1]; // remove `</` and `>`
+                    let tag = local.as_str();
                     if end_tag == tag {
                         break;
                     } else {
@@ -88,12 +86,12 @@ impl<'a> XmlReader<'a> {
     pub fn read_till_element_start(&mut self, end_tag: &str) -> XmlResult<()> {
         while let Some(token) = self.next() {
             match token? {
-                Token::ElementStart { span, .. } => {
-                    let tag = &span.as_str()[1..];
-                    if end_tag == tag {
+                Token::ElementStart { local, .. } => {
+                    let token = local.as_str();
+                    if end_tag == token {
                         break;
                     } else {
-                        self.read_to_end(tag)?;
+                        self.read_to_end(token)?;
                     }
                 }
                 Token::ElementEnd { .. }
@@ -114,10 +112,10 @@ impl<'a> XmlReader<'a> {
     pub fn find_attribute(&mut self) -> XmlResult<Option<(&'a str, Cow<'a, str>)>> {
         if let Some(token) = self.tokenizer.peek() {
             match token {
-                Ok(Token::Attribute { span, value, .. }) => {
+                Ok(Token::Attribute { local, value, .. }) => {
                     let value = value.as_str();
-                    let span = span.as_str(); // key="value"
-                    let key = &span[0..span.len() - value.len() - 3]; // remove `="`, value and `"`
+                    let key = local.as_str();
+
                     let value = Cow::Borrowed(value);
                     self.next();
                     return Ok(Some((key, value)));
@@ -149,16 +147,15 @@ impl<'a> XmlReader<'a> {
     pub fn find_element_start(&mut self, end_tag: Option<&str>) -> XmlResult<Option<&'a str>> {
         while let Some(token) = self.tokenizer.peek() {
             match token {
-                Ok(Token::ElementStart { span, .. }) => {
-                    return Ok(Some(&span.as_str()[1..]));
+                Ok(Token::ElementStart { local, .. }) => {
+                    return Ok(Some(local.as_str()));
                 }
                 Ok(Token::ElementEnd {
-                    end: ElementEnd::Close(_, _),
+                    end: ElementEnd::Close(_, local),
                     span,
                 }) if end_tag.is_some() => {
                     let end_tag = end_tag.unwrap();
-                    let span = span.as_str(); // </tag>
-                    let tag = &span[2..span.len() - 1]; // remove `</` and `>`
+                    let tag = local.as_str();
                     if tag == end_tag {
                         self.next();
                         return Ok(None);
@@ -211,7 +208,7 @@ impl<'a> XmlReader<'a> {
 
         while let Some(token) = self.next() {
             match token? {
-                Token::ElementStart { span, .. } if end_tag == &span.as_str()[1..] => {
+                Token::ElementStart { local, .. } if end_tag == local.as_str() => {
                     while let Some(token) = self.next() {
                         match token? {
                             Token::ElementEnd {
@@ -243,12 +240,14 @@ impl<'a> XmlReader<'a> {
                     }
                 }
                 Token::ElementEnd {
-                    end: ElementEnd::Close(_, _),
+                    end: ElementEnd::Close(_, local),
                     span,
-                } if end_tag == &span.as_str()[2..span.as_str().len() - 1] => {
-                    depth -= 1;
-                    if depth == 0 {
-                        return Ok(());
+                } => {
+                    if end_tag == local.as_str() {
+                        depth -= 1;
+                        if depth == 0 {
+                            return Ok(());
+                        }
                     }
                 }
                 _ => (),
